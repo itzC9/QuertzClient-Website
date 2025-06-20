@@ -36,32 +36,37 @@ def home():
 @app.route("/auth", methods=["GET", "POST"])
 def auth():
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-        user = User.query.filter_by(username=username, password=password).first()
-        if user:
-            session["user_id"] = user.id
-            return redirect("/panel")
-        else:
-            return "Invalid login"
-    return render_template("auth.html")
+        action = request.form.get("action")
 
-@app.route("/discord_callback")
-def discord_callback():
-    if not discord.authorized:
-        return redirect("/login/discord")
-    resp = discord.get("/api/users/@me")
-    if not resp.ok:
-        return "Failed to fetch Discord user"
-    data = resp.json()
-    username = data["username"]
-    user = User.query.filter_by(username=username).first()
-    if not user:
-        user = User(username=username, password="", coins=0)
-        db.session.add(user)
-        db.session.commit()
-    session["user_id"] = user.id
-    return redirect("/panel")
+        if action == "login":
+            username = request.form["username"]
+            password = request.form["password"]
+            user = User.query.filter_by(username=username, password=password).first()
+            if user:
+                session["user_id"] = user.id
+                return redirect("/panel")
+            else:
+                return "Invalid login"
+
+        elif action == "signup":
+            new_username = request.form["new_username"]
+            new_password = request.form["new_password"]
+            confirm_password = request.form["confirm_password"]
+
+            if new_password != confirm_password:
+                return "Passwords do not match"
+
+            existing_user = User.query.filter_by(username=new_username).first()
+            if existing_user:
+                return "Username already exists"
+
+            new_user = User(username=new_username, password=new_password, coins=0)
+            db.session.add(new_user)
+            db.session.commit()
+            session["user_id"] = new_user.id
+            return redirect("/panel")
+
+    return render_template("auth.html")
 
 @app.route("/store")
 @login_required
