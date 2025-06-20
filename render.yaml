@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: vps-hosting
-    env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python main.py"
