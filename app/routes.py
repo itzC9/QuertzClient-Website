@@ -21,7 +21,7 @@ class VPS(db.Model):
     type = Column(String(20), default="python")
 
 def login_required(f):
-    from functools import wraps @wraps(f)
+    from functools import wraps
         def wrapped(*args, **kwargs):
             if 'user_id' not in session:
             return redirect("/auth")
