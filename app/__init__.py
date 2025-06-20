@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
 
-app = Flask(name, static_folder="static", template_folder="templates")
+app = Flask(__name__, static_folder="static", template_folder="templates")
 app.secret_key = "yourtheone"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
 db = SQLAlchemy(app)
