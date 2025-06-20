@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buy Server</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h2>Buy a Server (120 coins)</h2>
+    <form action="/create" method="post">
+      <input type="text" name="name" placeholder="VPS Name" required>
+      <button type="submit">Buy Server</button>
+    </form>
+    <a href="/panel">Back to Dashboard</a>
+  </div>
+</body>
+</html>
