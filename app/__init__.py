@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-import os
 
 app = Flask(__name__, static_folder="static", template_folder="templates")
 app.secret_key = "yourtheone"
