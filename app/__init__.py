@@ -8,9 +8,9 @@ db = SQLAlchemy(app)
 
 from flask_dance.contrib.discord import make_discord_blueprint
 app.config["DISCORD_OAUTH_CLIENT_ID"] = "1257710925662785596"
-app.config["DISCORD_OAUTH_CLIENT_SECRET"] = "-FM9ELNy9lV-pDat7dY651XmCleAL-f4"
+app.config["DISCORD_OAUTH_CLIENT_SECRET"] = "fWxV0t5GMEmGywzg1zp_fDfPuE7gFq_a"
 app.config["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 discord_bp = make_discord_blueprint(scope=["identify", "email"], redirect_url="/discord_callback")
-app.register_blueprint(discord_bp, url_prefix="/login")
+app.register_blueprint(discord_bp, url_prefix="/auth")
 
 from app import routes
